@@ -1,5 +1,11 @@
-//aquí test unitarios para las funciones definidas
+// Aquí test unitarios para las funciones definidas
+
+// Con test.each - expect() podemos pasar muchos datos en un solo escenario
+// Con it - expect() podemos pasar solo un dato en un escenario.
+
 const { addProduct, getProducts, resetProducts, removeProduct, getProduct, updateProduct } = require('./product.js')
+
+
 
 beforeEach(() => {
   resetProducts()
@@ -17,12 +23,19 @@ describe('addProduct', () => {
     expect(products[0].price).toBe(price)
   });
 
-  test.each([
+  test.each([ 
     [undefined, 1],
     ['manzana', undefined],
     [undefined, undefined],
   ])('should throw error if values are not defined', (name, price) => {
     expect(() => addProduct(name, price)).toThrow()
+  })
+
+  test.each([
+    ['fresa', 6]
+  ])('should throw error because product already exists', (name, price) => {
+    addProduct(name, price)
+    expect(() => addProduct('fresa', 6)).toThrow()
   })
 })
 

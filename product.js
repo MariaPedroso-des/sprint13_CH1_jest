@@ -1,5 +1,5 @@
 let products = []
-let id = 0
+let id = 0 // id o contador de elementos
 
 function resetProducts() {
   products = []
@@ -28,16 +28,16 @@ function addProduct(name, price) {
   products.push(product)
   id++
 
-  return product
+  return products
 }
 
-function removeProduct(productId) {
-  const index = products.findIndex( product => product.id === productId)
+function removeProduct(id) {
+  const product = getProduct(id)
   
-  if(index === -1) {
+  if(!product) {
     throw new Error('product does not exist')
   }
-  products.splice(index, 1)
+  products.splice(products.indexOf(product), 1) // con splice necesito la posición que encuentro con findIndex y la cantidad que quiero borrar
 }
 
 function getProduct(productId) {
